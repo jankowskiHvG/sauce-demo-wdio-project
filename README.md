@@ -32,9 +32,10 @@ npm install
 
 3. Environment variables
 
+!! Rename .env-example or create new .env file
 Fill the password in .env file
 
-Currently .env consists only "sauce_password=YOUR_PASSWORD"
+Currently .env-example consists only "sauce_password=YOUR_PASSWORD"
 
 It's not a big secret that it's "secret_sauce", but for educational reasons I left password missing
 
