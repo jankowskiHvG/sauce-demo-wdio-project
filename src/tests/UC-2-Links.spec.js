@@ -41,7 +41,8 @@ describe('UC-2 Social media links', () => {
             );
 
             const allHandles = await browser.getWindowHandles();
-            await browser.switchToWindow(allHandles.find(handle => handle !== primaryWindowHandle));
+            const targetWindow = allHandles.find(handle => handle !== primaryWindowHandle);
+            await browser.switchToWindow(targetWindow);
 
             //THEN: The URL in new tab matches the social media icon
             await expect(browser).toHaveUrl(social.urlAfterRebranding,

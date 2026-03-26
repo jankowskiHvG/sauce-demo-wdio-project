@@ -20,7 +20,7 @@
     "@wdio/mocha-framework": "^9.27.0",
     "@wdio/spec-reporter": "^9.27.0",
     "dotenv": "^17.3.1",
-    "eslint": "^10.1.0",
+    "eslint": "^9.39.4",
     "globals": "^17.4.0"
   }
 }
