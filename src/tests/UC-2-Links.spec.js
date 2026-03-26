@@ -1,6 +1,6 @@
 const {pages} = require('../po/pages');
 const socialMediaData = require('../test-data/socialMediaLinks.json')
-
+const customLogger = require('../utils/customLogger.js');
 
 describe('UC-2 Social media links', () => {
    
@@ -13,8 +13,9 @@ describe('UC-2 Social media links', () => {
 
     socialMediaData.forEach((social) => {
     
-        it(`Scenario: User can open ${'social.name'} link`, async () => {
-        
+        it(`Scenario: User can open ${social.name} link`, async () => {
+            
+            customLogger.verify('social media link', social.name);
             const footer = pages('inventory').footer;
             const primaryWindowHandle = await browser.getWindowHandle();
 
@@ -29,7 +30,7 @@ describe('UC-2 Social media links', () => {
                 message: `ERROR: Icon of ${social.name} is not displayed in footer!`
             });
             await expect(socialLink).toHaveAttribute('href',social.url, {
-                message: `ERRORL Url of ${social.name} does not match!`
+                message: `ERROR: URL of ${social.name} does not match!`
             });
 
             //bonus - for happy path puropse I added "urlAfterRebranding" but test should fail due to Twitter becoming the "X"

@@ -9,6 +9,10 @@ class FooterComponent extends BaseComponent {
         return this.rootEl.$(`.social_${name} a`);
     }
 
+
+    async scrollToFooter() {
+        await this.scrollIntoView(this.rootEl);
+    }
 }
 
 module.exports = FooterComponent;

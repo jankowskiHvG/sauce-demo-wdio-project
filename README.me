@@ -1,0 +1,78 @@
+----------------------------------------------
+## EPAM JS AUTOMATION TASK - SAUCE DEMO
+----------------------------------------------
+## Tech Stack
+
+- **Framework**: WebdriverIO (v8+)
+- **Test Runner**: Mocha (BDD Interface)
+- **Assertion Library**: Expect-webdriverio
+- **Reporter**: Spec & Allure
+- **Pattern**: Page Object Model (POM)
+----------------------------------------------
+## Prerequisites
+----------------------------------------------
+
+1. Environment:
+
+-**Node.js** (developed in v24.14.0)
+-**Java** (for Allure reports)
+-**Allure**
+-**Microsoft Edge**
+-**Mozilla Firefox**
+
+Install Allure (dependency is already in package.json file):
+```bash
+npm -g allure-commandline
+```
+
+2. Clone the repository and install dependencies
+```bash
+npm install
+```
+
+3. Environment variables
+
+Fill the password in .env file
+
+Currently .env consists only "sauce_password=YOUR_PASSWORD"
+
+It's not a big secret that it's "secret_sauce", but for educational reasons I left password missing
+
+----------------------------------------------
+## Running tests
+----------------------------------------------
+Run all tests:
+
+```bash
+npm run wdio
+```
+
+Run chosen test:
+```bash
+npm run wdio -- --spec ./src/tests/UC-1-ProductDetails.js
+npm run wdio -- --spec ./src/tests/UC-2-Links.js
+```
+----------------------------------------------
+## Test Report
+----------------------------------------------
+1. **SPEC REPORTER**
+Enabled in console for immediate feedback.
+
+
+2. **ALLURE REPORT**
+**After test (npm run wdio) you can:
+
+**GENERATE an HTML report:
+```bash
+allure generate
+```
+[or to generate clean report]
+```bash
+allure generate allure-results --clean -o allure-report
+```
+
+**Open report in browser:
+```bash
+allure open
+```
+
