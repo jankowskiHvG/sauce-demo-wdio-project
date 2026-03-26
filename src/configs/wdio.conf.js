@@ -49,14 +49,25 @@ exports.config = {
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
     // https://saucelabs.com/platform/platform-configurator
     //
-    capabilities: [{
+    capabilities: [
+        {
         maxInstances: 1,
-        browserName: 'firefox'
-        },
+        browserName: 'firefox',
+        'moz:firefoxOptions': {
+            args: ['-headless'] // Firefox używa pojedynczego myślnika
+        }
+    },
         {
         maxInstances: 1,
         browserName: 'msedge',
-        'wdio:enforceWebDriverClassic': true
+        'wdio:enforceWebDriverClassic': true,
+        'ms:edgeOptions': {
+            args: [
+                '--headless',
+                '--disable-gpu',
+                '--window-size=1920,1080'
+            ]
+        }
         }
     ],
 
