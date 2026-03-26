@@ -1,41 +1,47 @@
+const {pages} = require('../po/pages');
+
+
 describe('Dynamic Content Flow', () => {
 
+    const productName = 'Sauce Labs Bike Light';
+
     beforeEach(async () => {
-    await browser.url('/');
+        await pages('login').loginAs();
     });
 
-    it('should verify product details and add to cart', async() => {
-        const productName = 'Sauce Labs Bike Light';
-
-        //login
-
+    it('User sees consistent product data and adds product to cart', async() => {
         
-
-        await $('#user-name').setValue('standard_user');
-        await $('#password').setValue('secret_sauce');
-        await $('#login-button').click();
-
-        //get product details from Inventory Page
-        const inventoryItem = $(`//div[@class="inventory_item_description"][.//div[text()="${productName}"]]`);
-        const inventoryPrice = await inventoryItem.$('.inventory_item_price').getText();
-        const inventoryDescription = await inventoryItem.$('.inventory_item_desc').getText();
-
-        //go to details page
-        await inventoryItem.$('.inventory_item_name').click();
+        //GIVEN: User is logged as a Standard User and reads product data on inventory page.
+        const inventoryPage = pages('inventory');
+        const inventoryItem=await inventoryPage.getItemByName(productName);
         
-        //get data from details page
-        const detailsPrice =  await $('.inventory_details_price').getText();
-        const detailsDescription = await $('.inventory_details_desc.large_size').getText();
+        const inventoryPrice = await inventoryPage.getPrice(inventoryItem);
+        const inventoryDescription = await inventoryPage.getDescription(inventoryItem);
 
-        //assertions
-        await expect(detailsPrice).toEqual(inventoryPrice);
+        //WHEN: User opens product details page.
+        await inventoryPage.openItemDetails(inventoryItem);
+        const productDetailsPage = pages('productDetails');
+        
+        //THEN: Product details should matcgh inventory data
+        const detailsPrice =  await productDetailsPage.getDetailsPrice();
+        const detailsDescription = await productDetailsPage.getDetailsDescription();
+
+        await expect(detailsPrice).toEqual(inventoryPrice); 
         await expect(detailsDescription).toEqual(inventoryDescription);
 
-        //add to cart
-        await $('#add-to-cart').click();
+        //WHEN: User adds product to card
+        await productDetailsPage.addToCart();
 
-        //assertion
-        await expect($('.shopping_cart_badge')).toBeDisplayed();
-        await expect($('#remove')).toBeDisplayed();
+        //THEN: Product should be added to cart
+        await expect(productDetailsPage.header.cartBadge).toBeDisplayed(
+            {message: 'ERROR: Cart icon does not indicate that product had been added to cart!',
+            wait: 5000
+            }
+        );
+        await expect(productDetailsPage.removeBtn).toBeDisplayed(
+            {message: 'ERROR: Remove button has not appeared after adding to cart!',
+            wait: 5000
+            }
+        );
     });
 });

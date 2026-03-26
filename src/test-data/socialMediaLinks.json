@@ -1,0 +1,6 @@
+[
+
+        { "name": "twitter", "url": "https://twitter.com/saucelabs", "urlAfterRebranding": "https://x.com/saucelabs"},
+        { "name": "facebook", "url": "https://www.facebook.com/saucelabs", "urlAfterRebranding": "https://www.facebook.com/saucelabs"},
+        { "name": "linkedin", "url": "https://www.linkedin.com/company/sauce-labs/", "urlAfterRebranding": "https://www.linkedin.com/company/sauce-labs/"}
+]

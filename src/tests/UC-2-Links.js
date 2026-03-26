@@ -1,51 +1,54 @@
-// UC-2 Footer & Social Links:
-// o Scroll to the footer.
-// o Verify that the Twitter, Facebook, and LinkedIn links exist.
-// o (Optional/Bonus) Verify that clicking a social link opens the correct URL in a new tab/window.
-describe('Social media links', async => {
+const {pages} = require('../po/pages');
+const socialMediaData = require('../test-data/socialMediaLinks.json')
 
-    const socialMediaLinks= [
 
-        { name: 'Twitter', selector: '.social_twitter a', url: 'https://twitter.com/saucelabs', urlAfterRebranding: 'https://x.com/saucelabs'},
-        { name: 'Facebook', selector: '.social_facebook a', url: 'https://www.facebook.com/saucelabs', urlAfterRebranding: 'https://www.facebook.com/saucelabs'},
-        { name: 'LinkedIn', selector:'.social_linkedin a', url: 'https://www.linkedin.com/company/sauce-labs/', urlAfterRebranding: 'https://www.linkedin.com/company/sauce-labs/'}
-    ];
-
+describe('UC-2 Social media links', () => {
    
 
     beforeEach(async () => {
-    await browser.url('/');
+        await pages('login').loginAs();
     });
     
-    it('Should verify 3 social media links', async () => {
+
+
+    socialMediaData.forEach((social) => {
+    
+        it(`Scenario: User can open ${'social.name'} link`, async () => {
         
-        await $('#user-name').setValue('standard_user');
-        await $('#password').setValue('secret_sauce');
-        await $('#login-button').click();
+            const footer = pages('inventory').footer;
+            const primaryWindowHandle = await browser.getWindowHandle();
 
-        await $('.footer').scrollIntoView();
+            //GIVEN: User is logged in and on Inventory Page
+            const socialLink = await footer.getSocialPlatform(social.name);
 
-        for (const social of socialMediaLinks) {
-            const socialLink = await $(social.selector);
-            await expect(socialLink).toBeDisplayed();
-            await expect(socialLink).toHaveAttribute('href',social.url);
+            //WHEN: User scrolls down to footer to see social media icons 
+            await footer.scrollToFooter();
+            
+            //THEN: The social media icon should be visable
+            await expect(socialLink).toBeDisplayed({
+                message: `ERROR: Icon of ${social.name} is not displayed in footer!`
+            });
+            await expect(socialLink).toHaveAttribute('href',social.url, {
+                message: `ERRORL Url of ${social.name} does not match!`
+            });
 
-            //bonus - for happyPath purlopse I added "urlAfterRebranding" but test should fail due to Twitter becoming x.com.
-            const primalWindow = await browser.getWindowHandle();
+            //bonus - for happy path puropse I added "urlAfterRebranding" but test should fail due to Twitter becoming the "X"
+            //WHEN: User clicks the social media platform's icon
             await socialLink.click();
-
             await browser.waitUntil(
                 async () => (await browser.getWindowHandles()).length>1
             );
 
-            const handles = await browser.getWindowHandles();
-            await browser.switchToWindow(handles.find(handle => handle != primalWindow));
-            await expect(browser).toHaveUrl(social.urlAfterRebranding);
+            const allHandles = await browser.getWindowHandles();
+            await browser.switchToWindow(allHandles.find(handle => handle !== primaryWindowHandle));
+
+            //THEN: The URL in new tab matches the social media icon
+            await expect(browser).toHaveUrl(social.urlAfterRebranding,
+                {message: `ERROR: Url in new tab does not match ${social.name}'s ${social.urlAfterRebranding}`}
+            );
             await browser.closeWindow();
-            await browser.switchToWindow(primalWindow);
-        }
-
-
+            await browser.switchToWindow(primaryWindowHandle);
+        })
     });
 
 
