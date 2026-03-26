@@ -14,11 +14,11 @@
 
 1. Environment:
 
--**Node.js** (developed in v24.14.0)
--**Java** (for Allure reports)
--**Allure**
--**Microsoft Edge**
--**Mozilla Firefox**
+- **Node.js** (developed in v24.14.0)
+- **Java** (for Allure reports)
+- **Allure**
+- **Microsoft Edge**
+- **Mozilla Firefox**
 
 Install Allure (dependency is already in package.json file):
 ```bash
