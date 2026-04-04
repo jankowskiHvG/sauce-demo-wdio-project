@@ -11,7 +11,7 @@ class FooterComponent extends BaseComponent {
 
 
     async scrollToFooter() {
-        await this.scrollIntoView(this.rootEl);
+        await this.rootEl.scrollIntoView();
     }
 }
 

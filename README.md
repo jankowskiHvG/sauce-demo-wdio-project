@@ -4,7 +4,8 @@
 ## Tech Stack
 
 - **Framework**: WebdriverIO (v8+)
-- **Test Runner**: Mocha (BDD Interface)
+- **Test Runner**:Cucumber (BDD Interface)
+- **Test Approach**: BDD with Gherkin
 - **Assertion Library**: Expect-webdriverio
 - **Reporter**: Spec & Allure
 - **Pattern**: Page Object Model (POM)
@@ -50,8 +51,8 @@ npm run wdio
 
 Run chosen test:
 ```bash
-npm run wdio -- --spec ./src/tests/UC-1-ProductDetails.js
-npm run wdio -- --spec ./src/tests/UC-2-Links.js
+npm run wdio -- --spec src/tests/features/UC-1-ProductDetails.feature
+npm run wdio -- --spec src/tests/features/UC-2-Links.feature
 ```
 ----------------------------------------------
 ## Test Report

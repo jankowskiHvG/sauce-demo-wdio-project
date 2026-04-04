@@ -10,11 +10,11 @@ const ProductDetailsPage = require('./product-details.page');
  */
 function pages (name) {
     const items = {
-        login: new LoginPage(),
-        inventory: new InventoryPage(),
-        productDetails: new ProductDetailsPage()
+        login: LoginPage,
+        inventory: InventoryPage,
+        productDetails: ProductDetailsPage
     }
-    return items[name];
+    return new items[name]();
 }
 
 module.exports = {

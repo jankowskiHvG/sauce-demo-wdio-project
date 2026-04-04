@@ -17,10 +17,6 @@ class LoginPage extends BasePage {
         return $('#login-button')
     }
 
-    async open() {
-        await super.open('');
-    }
-
     async login(username, password) {
         await this.usernameInput.setValue(username);
         await this.passwordInput.setValue(password);

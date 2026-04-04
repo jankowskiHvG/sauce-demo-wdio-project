@@ -1,4 +1,4 @@
-const {pages} = require('../po/pages');
+const {pages} = require('../po/pages/index.js');
 const socialMediaData = require('../test-data/socialMediaLinks.json')
 const customLogger = require('../utils/customLogger.js');
 
