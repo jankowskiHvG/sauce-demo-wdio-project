@@ -1,6 +1,12 @@
 ----------------------------------------------
 ## EPAM JS AUTOMATION TASK - SAUCE DEMO
 ----------------------------------------------
+## 🎯 Project Scope
+This project was developed as part of the **EPAM JS Test Automation Course**. 
+The goal was to automate two key user flows (UC) on the SauceDemo website:
+- **UC-1 Product Details Verification**: Parametrized test verifying data consistency between the main list and the product details page.
+- **UC-2 Footer & Social Links**: Verification of social media links visibility and correctness, including cross-tab navigation.
+
 ## Tech Stack
 
 - **Framework**: WebdriverIO (v8+)
